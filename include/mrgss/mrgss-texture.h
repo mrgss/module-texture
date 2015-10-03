@@ -20,9 +20,6 @@ extern "C" {
     typedef struct texture {
         GLuint tid;
     } mrgss_texture;
-    
-
-
 
 #ifdef	__cplusplus
 }
