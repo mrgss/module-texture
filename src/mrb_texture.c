@@ -10,7 +10,7 @@ static void
 texture_free(mrb_state *mrb, void *data) {
     mrgss_texture *tex = data;
     if (tex) {
-        free(tex);
+        mrb_free(mrb, tex);
     };
 }
 
