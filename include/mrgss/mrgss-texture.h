@@ -14,6 +14,8 @@
 #ifdef	__cplusplus
 extern "C" {
 #endif
+void
+mrb_mrgss_texture_gem_init(mrb_state *mrb);
 
     void mrgss_init_texture(mrb_state *mrb);
     
