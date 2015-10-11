@@ -1,27 +1,27 @@
 /* 
- * File:   mrgss-texture.h
+ * File:   mrgss_texture.h
  * Author: manuel
  *
- * Created on 3 de octubre de 2015, 00:16
+ * Created on 8 de octubre de 2015, 17:22
  */
 
 #ifndef MRGSS_TEXTURE_H
 #define	MRGSS_TEXTURE_H
-
 #include <mruby.h>
-#include <GL/gl.h>
+#include <SDL/SDL_opengl.h>
 
 #ifdef	__cplusplus
 extern "C" {
 #endif
-void
-mrb_mrgss_texture_gem_init(mrb_state *mrb);
 
-    void mrgss_init_texture(mrb_state *mrb);
-    
+    void mrgss_texture_init(mrb_state *mrb);
+
     typedef struct texture {
+        mrb_int w, h;
         GLuint tid;
     } mrgss_texture;
+
+
 
 #ifdef	__cplusplus
 }
