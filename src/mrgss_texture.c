@@ -3,10 +3,12 @@
 #endif
 #include <GL/glew.h>
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <SDL/SDL_opengl.h>
 #include <mruby.h>
 #include <mruby/data.h>
 #include <mruby/class.h>
+#include <mruby/string.h>
 #include <mrgss/mrgss.h>
 #include <mrgss/mrgss_texture.h>
 
@@ -62,10 +64,19 @@ static mrb_value initialize(mrb_state *mrb, mrb_value self) {
     SDL_Surface *pixmap;
     mrb_get_args(mrb, "o", &param);
     texture = mrb_malloc(mrb, sizeof texture);
-    pixmap = DATA_PTR(param);
-    texture->h = pixmap->h;
-    texture->w = pixmap->w;
-    texture->tid = surface_texture(pixmap);
+    if (mrb_string_p(param)) {
+        const char *str = mrb_string_value_ptr(mrb, param);
+        SDL_Surface *surface = IMG_Load(str);
+        texture->tid = surface_texture(surface);
+        texture->w = surface->w;
+        texture->h = surface->h;
+        SDL_FreeSurface(surface);
+    } else {
+        pixmap = DATA_PTR(param);
+        texture->h = pixmap->h;
+        texture->w = pixmap->w;
+        texture->tid = surface_texture(pixmap);
+    }
     DATA_TYPE(self) = &mrbal_texture_data_type;
     DATA_PTR(self) = texture;
     return self;
